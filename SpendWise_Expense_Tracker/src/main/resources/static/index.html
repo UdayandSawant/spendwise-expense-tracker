@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SpendWise - Expense Tracker</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💸</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">💸</span>
+      <div>
+        <h1>SpendWise</h1>
+        <p>Know where your money goes</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <input type="month" id="monthPicker" aria-label="Choose month">
+      <button id="themeToggle" class="icon-btn" title="Switch light / dark theme" aria-label="Switch theme">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Summary cards -->
+    <section class="cards">
+      <article class="card stat accent">
+        <span class="stat-label">Spent this month</span>
+        <strong class="stat-value" id="totalSpent">₹0</strong>
+        <span class="stat-note" id="changeNote">&nbsp;</span>
+      </article>
+      <article class="card stat">
+        <span class="stat-label">Transactions</span>
+        <strong class="stat-value" id="txCount">0</strong>
+        <span class="stat-note">in selected month</span>
+      </article>
+      <article class="card stat">
+        <span class="stat-label">Top category</span>
+        <strong class="stat-value" id="topCategory">-</strong>
+        <span class="stat-note" id="topCategoryNote">&nbsp;</span>
+      </article>
+      <article class="card stat">
+        <span class="stat-label">Last month</span>
+        <strong class="stat-value" id="lastMonth">₹0</strong>
+        <span class="stat-note">for comparison</span>
+      </article>
+    </section>
+
+    <section class="grid">
+      <!-- Add / edit form -->
+      <article class="card">
+        <h2 id="formTitle">Add expense</h2>
+        <form id="expenseForm" novalidate>
+          <label>What did you spend on?
+            <input type="text" id="title" maxlength="120" placeholder="e.g. Lunch with friends" required>
+          </label>
+
+          <div class="row">
+            <label>Amount (₹)
+              <input type="number" id="amount" min="0.01" step="0.01" placeholder="0.00" required>
+            </label>
+            <label>Date
+              <input type="date" id="expenseDate" required>
+            </label>
+          </div>
+
+          <div class="field">
+            <span class="field-label">Category</span>
+            <div class="chips" id="categoryChips"></div>
+          </div>
+
+          <label>Note (optional)
+            <input type="text" id="note" maxlength="255" placeholder="Anything to remember?">
+          </label>
+
+          <p class="form-error" id="formError" role="alert"></p>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary" id="submitBtn">Add expense</button>
+            <button type="button" class="btn ghost" id="cancelEdit" hidden>Cancel</button>
+          </div>
+        </form>
+      </article>
+
+      <!-- Category breakdown -->
+      <article class="card">
+        <h2>Spending by category</h2>
+        <div class="breakdown">
+          <div class="donut" id="donut">
+            <div class="donut-hole">
+              <span id="donutLabel">Total</span>
+              <strong id="donutValue">₹0</strong>
+            </div>
+          </div>
+          <ul class="legend" id="legend"></ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- Expense list -->
+    <section class="card">
+      <h2>Transactions</h2>
+      <ul class="tx-list" id="txList"></ul>
+      <div class="empty" id="emptyState" hidden>
+        <span>🪙</span>
+        <p>No expenses in this month yet.<br>Add your first one using the form above.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">SpendWise · Spring Boot + JavaScript</footer>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
